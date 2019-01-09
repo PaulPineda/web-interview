@@ -16,7 +16,7 @@ export interface AuthUser {
   lastName: string
 }
 
-interface Props {
+export interface Props {
   loading: boolean
   error: Error | null
   data: Record<string, any> | null
