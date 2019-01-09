@@ -1,6 +1,7 @@
 import * as React from 'react'
 import DataLoader from '../components/DataLoader'
 import { Props } from '../App'
+import SectionHeader from '../components/SectionHeader'
 
 interface Appointment {
   id: number
@@ -60,8 +61,8 @@ const Appointments: React.SFC<Props> = ({
   data: appointments,
 }) => (
   <>
-    <h1 className="section-appointments-heading">Appointments</h1>
-    <h3 className="section-appointments-sub">Upcoming</h3>
+    <SectionHeader mainHeading="Appointments" subHeading="Upcoming" />
+
     <ul>
       {loading && <div>Loading</div>}
 
