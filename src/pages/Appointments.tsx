@@ -2,11 +2,6 @@ import * as React from 'react'
 import DataLoader from '../components/DataLoader'
 import { Props } from '../App'
 
-const AppointmentType = {
-  gp: 'GP',
-  physio: 'Physio',
-}
-
 interface Appointment {
   id: number
   notes: string | null
@@ -15,25 +10,42 @@ interface Appointment {
   dateTime: string
 }
 
-const prettifyISO8601 = (dateTime: string) => {
+const differenceInDays = (future: Date, today: Date) => {
+  if (future < today) {
+    return -1
+  }
+
+  return future.setHours(0, 0, 0, 0) - today.setHours(0, 0, 0, 0)
+}
+
+const formatTimeSlot = (dateTime: string) => {
   const [year, month, day, hours, minutes] = dateTime
     .split(/\D+/)
     .map(d => parseInt(d, 10))
 
-  debugger
   const date = new Date(Date.UTC(year, month - 1, day))
 
-  // today
-  // tomorrow
-  // date
+  const diff = differenceInDays(date, new Date())
+
+  let prefix = ''
+  if (diff < 0) {
+    prefix = `Past appointment: `
+  }
+
+  if (diff === 0) {
+    prefix = 'Today at '
+  }
+
+  if (diff === 1) {
+    prefix = 'Tomorrow at '
+  }
 
   const intlDay = Intl.DateTimeFormat('en-GB', {
     day: '2-digit',
     month: 'short',
-    // year: "2-digit",
   }).format(date)
 
-  return `${intlDay} ${hours}:${minutes}`
+  return `${prefix}${intlDay} ${hours}:${minutes}`
 }
 
 const AppointmentsWithData: React.SFC = () => (
@@ -46,29 +58,32 @@ const Appointments: React.SFC<Props> = ({
   loading,
   error,
   data: appointments,
-}) => {
-  return (
-    <>
-      <h1>Appointments</h1>
-      <h3>Upcoming</h3>
-      <ul>
-        {loading && <div>Loading</div>}
-        {!loading &&
-          appointments &&
-          appointments.map((appointment: Appointment) => {
-            const { id, userId, type, notes, dateTime } = appointment
-            const key = `${id}_${userId}_${dateTime}`
-            const timeslot = prettifyISO8601(dateTime)
-            return (
-              <li key={key}>
-                <div className="appointments-slot-title">{`${type} appointment`}</div>
-                <div className="appointments-slot-timeslot">{timeslot}</div>
-              </li>
-            )
-          })}
-      </ul>
-    </>
-  )
-}
+}) => (
+  <>
+    <h1 className="section-appointments-heading">Appointments</h1>
+    <h3 className="section-appointments-sub">Upcoming</h3>
+    <ul>
+      {loading && <div>Loading</div>}
+
+      {error && (
+        <div>Something went wrong. Appointments couldn't be retrieved</div>
+      )}
+
+      {!loading &&
+        appointments &&
+        appointments.map((appointment: Appointment) => {
+          const { id, userId, type, notes, dateTime } = appointment
+          const key = `${id}_${userId}_${dateTime}`
+          const timeslot = formatTimeSlot(dateTime)
+          return (
+            <li key={key}>
+              <div className="appointments-slot-title">{`${type}`}</div>
+              <div className="appointments-slot-timeslot">{timeslot}</div>
+            </li>
+          )
+        })}
+    </ul>
+  </>
+)
 
 export default AppointmentsWithData
