@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import logo from './logo.png'
 import { API_ENDPOINT } from './config'
 
 import './App.scss'
@@ -9,6 +8,7 @@ import Home from './pages/Home'
 import Appointments from './pages/Appointments'
 import BookAppointment from './pages/BookAppointment'
 import DataLoader from './components/DataLoader'
+import SiteNavigation from './components/SiteNavigation'
 
 export interface AuthUser {
   avatar: string
@@ -38,11 +38,7 @@ const App: React.SFC<Props> = props => {
   return (
     <Router>
       <div className="app">
-        <header className="app-header">
-          <Link to="/">
-            <img src={logo} className="app-logo" alt="logo" />
-          </Link>
-        </header>
+        <SiteNavigation user={userData as AuthUser} />
         {loading && <div>Loading</div>}
         {!loading && userData && (
           <>

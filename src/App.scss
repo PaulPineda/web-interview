@@ -1,10 +1,45 @@
 @import './constants.scss';
 
+//<-- reset styles
+html,
+body {
+  box-sizing: border-box;
+  font-size: 18px;
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+// reset styles -->
+
 header {
   padding: $gutter-size--large;
+  height: $header-height;
+  display: flex;
 
-  img {
-    max-height: 33px;
+  a > img {
+    max-height: $header-content-height;
+    padding: $gutter-size;
+  }
+
+  ul {
+    display: inline-flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-grow: 3;
+    list-style: none;
+    line-height: $header-content-height;
+  }
+
+  .icon-avatar {
+    border-radius: 50%;
+    background-color: $icon-color;
+    width: $header-content-height;
+    height: $header-content-height;
   }
 
   border-bottom: $border-standard;
@@ -12,4 +47,10 @@ header {
 
 .booking-container {
   padding-left: 12px;
+}
+
+.container-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
