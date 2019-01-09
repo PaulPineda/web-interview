@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import logo from './logo.png'
 import { API_ENDPOINT } from './config'
 
@@ -39,7 +39,9 @@ const App: React.SFC<Props> = props => {
     <Router>
       <div className="app">
         <header className="app-header">
-          <img src={logo} className="app-logo" alt="logo" />
+          <Link to="/">
+            <img src={logo} className="app-logo" alt="logo" />
+          </Link>
         </header>
         {loading && <div>Loading</div>}
         {!loading && userData && (
