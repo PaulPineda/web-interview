@@ -8,6 +8,7 @@ import './App.scss'
 import Home from './pages/Home'
 import Appointments from './pages/Appointments'
 import BookAppointment from './pages/BookAppointment'
+import DataLoader from './components/DataLoader'
 
 export interface AuthUser {
   avatar: string
@@ -15,47 +16,46 @@ export interface AuthUser {
   lastName: string
 }
 
-interface State {
-  user: AuthUser | null
+interface Props {
+  loading: boolean
+  error: Error | null
+  data: Record<string, any> | null
 }
 
-class App extends Component<{}, State> {
-  public state = {
-    user: null,
+const AppWithData: React.SFC = () => (
+  <DataLoader path="/users/1">
+    {renderProps => <App {...renderProps} />}
+  </DataLoader>
+)
+
+const App: React.SFC<Props> = props => {
+  const { loading, error, data: userData } = props
+
+  if (error) {
+    throw new Error('Something went wrong. Could not retrieve user details')
   }
 
-  public componentDidMount() {
-    fetch(`${API_ENDPOINT}/users/1`)
-      .then(res => res.json())
-      .then(user => {
-        // expect the logged in user object here
-        this.setState({ user })
-      })
-      .catch(() => {
-        // handle failed API call here
-      })
-  }
-
-  public render() {
-    return (
-      <Router>
-        <div className="app">
-          <header className="app-header">
-            <img src={logo} className="app-logo" alt="logo" />
-          </header>
+  return (
+    <Router>
+      <div className="app">
+        <header className="app-header">
+          <img src={logo} className="app-logo" alt="logo" />
+        </header>
+        {loading && <div>Loading</div>}
+        {!loading && userData && (
           <>
             <Route
               exact
               path="/"
-              render={props => <Home user={this.state.user} />}
+              render={props => <Home user={userData as AuthUser} />}
             />
             <Route exact path="/appointments" component={Appointments} />
             <Route exact path="/book" component={BookAppointment} />
           </>
-        </div>
-      </Router>
-    )
-  }
+        )}
+      </div>
+    </Router>
+  )
 }
 
-export default App
+export default AppWithData

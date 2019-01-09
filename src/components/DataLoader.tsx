@@ -25,7 +25,7 @@ class DataLoader extends Component<Props, State> {
   public async componentDidMount() {
     this.setState({ loading: true })
 
-    const res = await fetch(`${API_ENDPOINT}/${this.props.path}`)
+    const res = await fetch(`${API_ENDPOINT}${this.props.path}`)
       .then(res => res.json())
       .then(data =>
         this.setState({
