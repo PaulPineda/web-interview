@@ -20,10 +20,15 @@ const SiteNavigation: React.SFC<Props> = ({ user }) => (
       <img src={logo} className="app-logo" alt="logo" />
     </Link>
     <ul>
-      <li>Book</li>
-      <li>Appointments</li>
+      <li>
+        <Link to="/book">Book</Link>
+      </li>
+      <li>
+        <Link to="/appointments">Appointments</Link>
+      </li>
       <li>Family members</li>
     </ul>
+
     {user && (
       <div className="icon-avatar container-centered">{userInitials(user)}</div>
     )}
