@@ -81,20 +81,12 @@ a:active {
   padding: $gutter-size--xlarge;
 }
 
-.section-book-appointment-choose-user {
+.container-centered {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-
-  padding: $gutter-size;
-
-  border-bottom: $border-standard;
 }
 // SECTIONS -->
-
-.booking-container {
-  padding-left: 12px;
-}
 
 .appointments-slot {
   list-style: none;
@@ -115,8 +107,29 @@ a:active {
   }
 }
 
-.container-centered {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.booking-container {
+  .choose-user {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    padding: $gutter-size;
+    padding-bottom: $gutter-size--xlarge;
+
+    border-bottom: $border-standard;
+  }
+
+  .date-time {
+    font-weight: 600;
+
+    ul {
+      display: flex;
+      justify-content: space-evenly;
+      align-content: center;
+    }
+  }
+
+  .notes {
+    font-weight: 600;
+  }
 }
