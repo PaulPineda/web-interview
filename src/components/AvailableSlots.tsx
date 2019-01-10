@@ -1,6 +1,7 @@
 import * as React from 'react'
 import DataLoader from './DataLoader'
 import { Props } from '../App'
+import { formatTimeSlot } from '../helpers/date'
 
 const AvailableSlotsWithData: React.SFC = () => (
   <DataLoader path="/availableSlots">
@@ -16,7 +17,9 @@ const AvailableSlots: React.SFC<Props> = ({ loading, error, data: slots }) => (
       <div>Something went wrong. Appointments couldn't be retrieved</div>
     )}
 
-    {!loading && slots && slots.map((slot: string) => <li>{slot}</li>)}
+    {!loading &&
+      slots &&
+      slots.map((slot: string) => <li>{formatTimeSlot(slot, true)}</li>)}
   </ul>
 )
 
