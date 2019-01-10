@@ -96,6 +96,25 @@ a:active {
   padding-left: 12px;
 }
 
+.appointments-slot {
+  list-style: none;
+
+  li {
+    display: flex;
+    justify-content: flex-start;
+
+    .title {
+      margin: $gutter-size;
+      padding: 0 $gutter-size--large;
+    }
+
+    .timeslot {
+      margin: $gutter-size;
+      padding: 0 $gutter-size--large;
+    }
+  }
+}
+
 .container-centered {
   display: flex;
   justify-content: center;

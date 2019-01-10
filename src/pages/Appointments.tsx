@@ -63,7 +63,7 @@ const Appointments: React.SFC<Props> = ({
   <div className="section-container">
     <SectionHeader mainHeading="Appointments" subHeading="Upcoming" />
 
-    <ul>
+    <ul className="appointments-slot">
       {loading && <div>Loading</div>}
 
       {error && (
@@ -78,8 +78,11 @@ const Appointments: React.SFC<Props> = ({
           const timeslot = formatTimeSlot(dateTime)
           return (
             <li key={key}>
-              <div className="appointments-slot-title">{`${type}`}</div>
-              <div className="appointments-slot-timeslot">{timeslot}</div>
+              <span className="circle icon container-centered">GP</span>
+              <span>
+                <h4 className="title">{`${type}`}</h4>
+                <div className="timeslot">{timeslot}</div>
+              </span>
             </li>
           )
         })}
