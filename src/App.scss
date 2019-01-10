@@ -5,6 +5,7 @@ html,
 body {
   box-sizing: border-box;
   font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -14,14 +15,19 @@ body {
 *:after {
   box-sizing: inherit;
 }
+
+a {
+  text-decoration: none;
+}
 // reset styles -->
 
 header {
   padding: $gutter-size--large;
   height: $header-height;
   display: flex;
+  font-size: 16px;
 
-  a > img {
+  img {
     max-height: $header-content-height;
     padding: $gutter-size;
   }
@@ -35,14 +41,41 @@ header {
     line-height: $header-content-height;
   }
 
-  .icon-avatar {
-    border-radius: 50%;
-    background-color: $icon-color;
+  .icon {
     width: $header-content-height;
     height: $header-content-height;
   }
 
   border-bottom: $border-standard;
+}
+
+a:link {
+  color: $secondary-dark;
+}
+a:visited {
+  color: $outline-dark;
+}
+a:hover {
+  color: $secondary-extra-dark;
+  text-decoration: underline;
+}
+a:active {
+  color: $secondary-dark;
+}
+
+.circle {
+  border-radius: 50%;
+  background-color: $icon-color;
+  color: $secondary-light;
+}
+
+.icon {
+  width: $icon-size;
+  height: $icon-size;
+}
+
+.section-container {
+  padding: 0 $gutter-size--xlarge;
 }
 
 .booking-container {

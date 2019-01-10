@@ -9,6 +9,7 @@ import Appointments from './pages/Appointments'
 import BookAppointment from './pages/BookAppointment'
 import DataLoader from './components/DataLoader'
 import SiteNavigation from './components/SiteNavigation'
+import FamilyMembers from './pages/FamilyMembers'
 
 export interface AuthUser {
   avatar: string
@@ -45,10 +46,19 @@ const App: React.SFC<Props> = props => {
             <Route
               exact
               path="/"
-              render={props => <Home user={userData as AuthUser} />}
+              render={() => <Home user={userData as AuthUser} />}
             />
             <Route exact path="/appointments" component={Appointments} />
-            <Route exact path="/book" component={BookAppointment} />
+            <Route
+              exact
+              path="/book"
+              render={() => <BookAppointment user={userData as AuthUser} />}
+            />
+            <Route
+              exact
+              path="/family-members"
+              render={() => <FamilyMembers user={userData as AuthUser} />}
+            />
           </>
         )}
       </div>

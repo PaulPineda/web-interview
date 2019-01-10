@@ -2,6 +2,9 @@
 
 $gutter-size: 4px;
 $gutter-size--large: 2 * $gutter-size;
+$gutter-size--xlarge: 4 * $gutter-size;
+
+$icon-size: 44px;
 
 $header-height: 54px;
 $header-content-height: $header-height - 2 * $gutter-size--large;

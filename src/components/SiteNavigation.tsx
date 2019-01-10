@@ -2,16 +2,10 @@ import { Link } from 'react-router-dom'
 import * as React from 'react'
 import logo from '../logo.png'
 import { AuthUser } from '../App'
+import Avatar from './Avatar'
 
 interface Props {
   user: AuthUser
-}
-
-const userInitials = (user: AuthUser) => {
-  const firstInitial = user.firstName.charAt(0)
-  const lastInitial = user.lastName.charAt(0)
-
-  return firstInitial + lastInitial
 }
 
 const SiteNavigation: React.SFC<Props> = ({ user }) => (
@@ -26,12 +20,12 @@ const SiteNavigation: React.SFC<Props> = ({ user }) => (
       <li>
         <Link to="/appointments">Appointments</Link>
       </li>
-      <li>Family members</li>
+      <li>
+        <Link to="/family-members">Family members</Link>
+      </li>
     </ul>
 
-    {user && (
-      <div className="icon-avatar container-centered">{userInitials(user)}</div>
-    )}
+    {user && <Avatar user={user} initialsOnly />}
   </header>
 )
 
