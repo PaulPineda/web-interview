@@ -24,7 +24,9 @@ const Home: React.SFC<Props> = ({ user }) => {
         <h3>Account</h3>
         <ul>
           <li>
-            <button>Family</button>
+            <Link to="/family-members">
+              <button>Family</button>
+            </Link>
           </li>
         </ul>
       </div>
