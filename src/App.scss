@@ -4,7 +4,7 @@
 html,
 body {
   box-sizing: border-box;
-  font-size: 18px;
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
@@ -63,6 +63,7 @@ a:active {
   color: $secondary-dark;
 }
 
+// <-- ICONS
 .circle {
   border-radius: 50%;
   background-color: $icon-color;
@@ -73,10 +74,23 @@ a:active {
   width: $icon-size;
   height: $icon-size;
 }
+// ICONS -->
 
+// <-- SECTIONS
 .section-container {
-  padding: 0 $gutter-size--xlarge;
+  padding: $gutter-size--xlarge;
 }
+
+.section-book-appointment-choose-user {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  padding: $gutter-size;
+
+  border-bottom: $border-standard;
+}
+// SECTIONS -->
 
 .booking-container {
   padding-left: 12px;

@@ -60,7 +60,7 @@ const Appointments: React.SFC<Props> = ({
   error,
   data: appointments,
 }) => (
-  <>
+  <div className="section-container">
     <SectionHeader mainHeading="Appointments" subHeading="Upcoming" />
 
     <ul>
@@ -84,7 +84,7 @@ const Appointments: React.SFC<Props> = ({
           )
         })}
     </ul>
-  </>
+  </div>
 )
 
 export default AppointmentsWithData

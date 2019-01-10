@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { AuthUser } from '../App'
 import { Link } from 'react-router-dom'
+import Avatar from '../components/Avatar'
 
 interface Props {
   user: AuthUser | null
@@ -14,9 +15,9 @@ const Home: React.SFC<Props> = ({ user }) => {
   const { avatar, firstName, lastName } = user
 
   return (
-    <>
+    <div className="section-container">
       <div className="home-header">
-        <img src={avatar} alt="avatar" />
+        <Avatar user={user} />
         <h1>{`${firstName} ${lastName}`}</h1>
       </div>
       <div className="home-account">
@@ -40,7 +41,7 @@ const Home: React.SFC<Props> = ({ user }) => {
           </li>
         </ul>
       </div>
-    </>
+    </div>
   )
 }
 

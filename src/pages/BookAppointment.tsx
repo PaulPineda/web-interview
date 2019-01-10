@@ -14,14 +14,14 @@ const BookAppointment: React.SFC<Props> = ({
 }) => (
   <div className="section-container">
     <SectionHeader mainHeading="New Appointment" />
-    <div className="section-book-appointment">
+    <div className="section-book-appointment-choose-user">
       <Avatar user={user} /> <span>{`${firstName} ${lastName}`}</span>
     </div>
     <div>
-      <h4>Date &amp; Time</h4>
+      <span>Date &amp; Time</span>
     </div>
     <div>
-      <h4>Notes</h4>
+      <span>Notes</span>
     </div>
   </div>
 )
