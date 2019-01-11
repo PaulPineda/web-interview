@@ -4,7 +4,7 @@
 html,
 body {
   box-sizing: border-box;
-  font-size: 14px;
+  font-size: $font-size--medium;
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
@@ -21,11 +21,25 @@ a {
 }
 // reset styles -->
 
+a:link {
+  color: $secondary-dark;
+}
+a:visited {
+  color: $outline-dark;
+}
+a:hover {
+  color: $secondary-extra-dark;
+  text-decoration: underline;
+}
+a:active {
+  color: $secondary-dark;
+}
+
 header {
   padding: $gutter-size--large;
   height: $header-height;
   display: flex;
-  font-size: 16px;
+  font-size: $font-size--default;
 
   img {
     max-height: $header-content-height;
@@ -47,20 +61,6 @@ header {
   }
 
   border-bottom: $border-standard;
-}
-
-a:link {
-  color: $secondary-dark;
-}
-a:visited {
-  color: $outline-dark;
-}
-a:hover {
-  color: $secondary-extra-dark;
-  text-decoration: underline;
-}
-a:active {
-  color: $secondary-dark;
 }
 
 // <-- ICONS
@@ -108,6 +108,26 @@ a:active {
 }
 
 .booking-container {
+  h4 {
+    display: inline-block;
+    padding-left: 40px;
+  }
+
+  button {
+    background: $positive;
+    border-color: $positive;
+    border-radius: 0.5 * $font-size--medium;
+    color: white;
+    margin-top: $gutter-size--xlarge;
+    outline: none;
+    padding: $gutter-size--large 2 * $gutter-size--large;
+    width: 100%;
+
+    & :hover {
+      background: $positive-light;
+    }
+  }
+
   .choose-user {
     display: flex;
     justify-content: flex-start;
@@ -120,16 +140,60 @@ a:active {
   }
 
   .date-time {
-    font-weight: 600;
-
     ul {
       display: flex;
-      justify-content: space-evenly;
+      justify-content: flex-start;
       align-content: center;
+      list-style: none;
+      margin-top: 0;
+
+      li {
+        margin: $gutter-size--xlarge $gutter-size--large;
+      }
+
+      li:first-child {
+        margin-left: 0;
+      }
+
+      li:last-child {
+        margin-right: 0;
+      }
     }
   }
 
   .notes {
-    font-weight: 600;
+    div {
+      padding-left: 40px;
+
+      textarea {
+        border: 1px solid $light-grey;
+        border-radius: 0.5 * $font-size--medium;
+        outline-color: $positive;
+        width: 100%;
+        height: 8 * $font-size--default;
+      }
+    }
+  }
+}
+
+.btn-pill {
+  font-weight: 200;
+  color: $secondary-dark;
+
+  input {
+    display: none;
+
+    &:checked + label {
+      background: $positive;
+      border-color: $positive;
+      border-width: 1px;
+      color: white;
+    }
+  }
+
+  label {
+    border-radius: $font-size--default * 1.2;
+    border: 1px solid $light-grey;
+    padding: $gutter-size--large 2 * $gutter-size--large;
   }
 }

@@ -2,7 +2,7 @@ import * as React from 'react'
 import DataLoader from '../components/DataLoader'
 import { Props } from '../App'
 import SectionHeader from '../components/SectionHeader'
-import { formatTimeSlot } from '../helpers/date'
+import { formatAppointmentTimeSlot } from '../helpers/date'
 
 interface Appointment {
   id: number
@@ -38,7 +38,7 @@ const Appointments: React.SFC<Props> = ({
         appointments.map((appointment: Appointment) => {
           const { id, userId, type, notes, dateTime } = appointment
           const key = `${id}_${userId}_${dateTime}`
-          const timeslot = formatTimeSlot(dateTime)
+          const timeslot = formatAppointmentTimeSlot(dateTime)
           return (
             <li key={key}>
               <span className="circle icon container-centered">GP</span>

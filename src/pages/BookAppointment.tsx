@@ -15,16 +15,29 @@ const BookAppointment: React.SFC<Props> = ({
   <div className="section-container">
     <div className="booking-container">
       <SectionHeader mainHeading="New Appointment" />
-      <div className="choose-user">
-        <Avatar user={user} /> <span>{`${firstName} ${lastName}`}</span>
-      </div>
-      <div className="date-time">
-        <span>Date &amp; Time</span>
-        <AvailableSlots />
-      </div>
-      <div className="notes">
-        <span>Notes</span>
-      </div>
+      <form>
+        <div className="choose-user">
+          <Avatar user={user} /> <span>{`${firstName} ${lastName}`}</span>
+        </div>
+        <div className="date-time">
+          <h4>Date &amp; Time</h4>
+          <AvailableSlots />
+        </div>
+        <h4>Notes</h4>
+        <div className="notes">
+          <div>
+            <textarea placeholder="Describe your symptoms (optional)" />
+          </div>
+        </div>
+        <button
+          type="submit"
+          onClick={e => {
+            e.preventDefault()
+          }}
+        >
+          Book
+        </button>
+      </form>
     </div>
   </div>
 )

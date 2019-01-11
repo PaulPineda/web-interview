@@ -1,7 +1,7 @@
 import * as React from 'react'
 import DataLoader from './DataLoader'
 import { Props } from '../App'
-import { formatTimeSlot } from '../helpers/date'
+import { formatAvailableTimeSlot, daysFromToday } from '../helpers/date'
 
 const AvailableSlotsWithData: React.SFC = () => (
   <DataLoader path="/availableSlots">
@@ -9,18 +9,51 @@ const AvailableSlotsWithData: React.SFC = () => (
   </DataLoader>
 )
 
-const AvailableSlots: React.SFC<Props> = ({ loading, error, data: slots }) => (
-  <ul className="available-slots">
-    {loading && <div>Loading</div>}
+const AvailableSlots: React.SFC<Props> = ({ loading, error, data: slots }) => {
+  let returnVal = null
 
-    {error && (
+  if (loading) {
+    returnVal = <div>Loading</div>
+  }
+
+  if (error) {
+    returnVal = (
       <div>Something went wrong. Appointments couldn't be retrieved</div>
-    )}
+    )
+  }
 
-    {!loading &&
-      slots &&
-      slots.map((slot: string) => <li>{formatTimeSlot(slot, true)}</li>)}
-  </ul>
-)
+  if (loading) {
+    returnVal = <div>Loading</div>
+  }
+
+  if (!loading && slots) {
+    returnVal = (
+      <ul className="available-slots">
+        {slots
+          .filter((slot: string) => daysFromToday(slot) > 0)
+          .map((slot: string, i: number) => {
+            const val = formatAvailableTimeSlot(slot, i) as string
+
+            return (
+              i < 4 && (
+                <li key={slot} className="btn-pill">
+                  <input
+                    type="radio"
+                    name="time-slot"
+                    id={val}
+                    value={val}
+                    {...i === 0 && { checked: true }}
+                  />
+                  <label htmlFor={val as string}>{val}</label>
+                </li>
+              )
+            )
+          })}
+      </ul>
+    )
+  }
+
+  return returnVal
+}
 
 export default AvailableSlotsWithData
