@@ -4,7 +4,7 @@ import { AuthUser } from '../App'
 import Avatar from '../components/Avatar'
 import AvailableSlots from '../components/AvailableSlots'
 import { API_ENDPOINT } from '../config'
-import { Redirect, RouteComponentProps } from 'react-router-dom'
+import { Redirect, RouteComponentProps, withRouter } from 'react-router-dom'
 
 interface RouteParams {
   userId: string
@@ -43,7 +43,7 @@ const bookAppointment = async (formData: FormData) => {
     body: JSON.stringify(formData),
   })
 
-  if (res.status === 200 || res.status === 202) {
+  if (res.status === 200 || res.status === 201) {
     return 'Success'
   }
 
@@ -55,6 +55,7 @@ class BookAppointment extends React.Component<Props, State> {
     form: { user: this.props.user, bookedSlot: '', notes: '' },
     hasErrors: false,
     requestStatus: [null, null],
+    delayReirectTimeout: null,
   }
 
   protected handleTimeSlotClick = (
@@ -130,8 +131,8 @@ class BookAppointment extends React.Component<Props, State> {
               <Avatar user={user} /> <span>{`${firstName} ${lastName}`}</span>
             </div>
 
+            <h4>Date &amp; Time</h4>
             <div className="date-time">
-              <h4>Date &amp; Time</h4>
               <AvailableSlots
                 onClick={this.handleTimeSlotClick}
                 hasErrors={hasErrors}
@@ -161,14 +162,7 @@ class BookAppointment extends React.Component<Props, State> {
               </span>
             )}
 
-            {responseSuccess && (
-              <>
-                <span className="form-response error">
-                  Something went wrong. Your booking was not successful
-                </span>
-                <Redirect to="/appointments" />
-              </>
-            )}
+            {responseSuccess && <Redirect to="/appointments" />}
           </form>
         </div>
       </div>
@@ -176,4 +170,4 @@ class BookAppointment extends React.Component<Props, State> {
   }
 }
 
-export default BookAppointment
+export default withRouter(BookAppointment)

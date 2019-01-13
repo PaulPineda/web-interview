@@ -42,6 +42,9 @@ export const formatAppointmentTimeSlot = (dateTime: string) => {
   const { date, hours, minutes } = dissolveISO8601String(dateTime)
 
   const diff = daysFromToday(dateTime)
+  const datePassed = diff < 0
+  const isToday = diff === 0
+  const isTomorrow = diff === 1
 
   const intlDay = Intl.DateTimeFormat('en-GB', {
     day: '2-digit',
@@ -50,19 +53,13 @@ export const formatAppointmentTimeSlot = (dateTime: string) => {
 
   let prefix = ''
 
-  if (diff < 0) {
-    prefix = `Past appointment: `
-  }
+  if (datePassed) return `Past appointment: ${intlDay} ${hours}:${minutes}`
 
-  if (diff === 0) {
-    prefix = 'Today at '
-  }
+  if (isToday) return `Today at ${hours}:${minutes}`
 
-  if (diff === 1) {
-    prefix = 'Tomorrow at '
-  }
+  if (isTomorrow) return `Tomorrow at ${hours}:${minutes}`
 
-  return `${prefix}${intlDay} ${hours}:${minutes}`
+  return `${intlDay} at ${hours}:${minutes}`
 }
 
 export const formatAvailableTimeSlot = (dateTime: string, i: number) => {
@@ -70,11 +67,27 @@ export const formatAvailableTimeSlot = (dateTime: string, i: number) => {
 
   const diff = daysFromToday(dateTime)
 
+  const prefix = i === 0 ? 'Today ' : ''
+
+  /*
+    The following is the correct logic that would be used
+    assuming the API returned results 
+
+    const datePassed = diff < 0
+    const isToday = diff === 0
+
+    if (datePassed) return null
+
+    if (isToday && i === 0) return `Today ${hours}:${minutes}`
+
+    if (isToday) return `Today ${hours}:${minutes}`
+
+    return 'Another time'
+  */
+
   if (diff < 0) {
     return null
   }
-
-  let prefix = i === 0 ? 'Today ' : ''
 
   if (i > 2) {
     return 'Another time'

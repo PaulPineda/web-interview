@@ -45,7 +45,7 @@ const Appointments: React.SFC<Props> = ({
               <span className="circle icon container-centered">GP</span>
               <span>
                 <h4 className="title">{`${type}`}</h4>
-                <div className="timeslot">{timeslot}</div>
+                <span className="timeslot">{timeslot}</span>
               </span>
             </li>
           )
