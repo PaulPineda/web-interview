@@ -79,6 +79,8 @@ header {
 // <-- SECTIONS
 .section-container {
   padding: $gutter-size--xlarge;
+  max-width: 716px;
+  margin: 0 auto;
 }
 
 .container-centered {
@@ -174,11 +176,29 @@ header {
       }
     }
   }
+
+  .form-response {
+    font-weight: 600;
+
+    &.required {
+      color: $error;
+      padding-left: 40px;
+    }
+
+    &.error {
+      color: $error;
+    }
+
+    &.success {
+      color: $success;
+    }
+  }
 }
 
 .btn-pill {
   font-weight: 200;
   color: $secondary-dark;
+  cursor: pointer;
 
   input {
     display: none;

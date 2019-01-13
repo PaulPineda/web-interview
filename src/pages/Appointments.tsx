@@ -36,9 +36,10 @@ const Appointments: React.SFC<Props> = ({
       {!loading &&
         appointments &&
         appointments.map((appointment: Appointment) => {
-          const { id, userId, type, notes, dateTime } = appointment
+          const { id, userId, type, dateTime } = appointment
           const key = `${id}_${userId}_${dateTime}`
           const timeslot = formatAppointmentTimeSlot(dateTime)
+
           return (
             <li key={key}>
               <span className="circle icon container-centered">GP</span>

@@ -11,6 +11,10 @@ import DataLoader from './components/DataLoader'
 import SiteNavigation from './components/SiteNavigation'
 import FamilyMembers from './pages/FamilyMembers'
 
+interface LoggedInUserId {
+  loggedInUserId: number
+}
+
 export interface AuthUser {
   avatar: string
   firstName: string
@@ -23,14 +27,33 @@ export interface Props {
   data: Record<string, any> | null
 }
 
-const AppWithData: React.SFC = () => (
-  <DataLoader path="/users/1">
-    {renderProps => <App {...renderProps} />}
+class App extends React.Component<{}, LoggedInUserId> {
+  public state = {
+    loggedInUserId: 1,
+  }
+
+  protected setLoggedInUser = (userId: number) =>
+    this.setState({ loggedInUserId: userId })
+
+  public render() {
+    // IRL state could be set in this.componentDidMount
+    // if not set, redirect to / show login DataView
+    // otherwise:
+
+    return <AppWithData loggedInUserId={this.state.loggedInUserId} />
+  }
+}
+
+const AppWithData: React.SFC<LoggedInUserId> = ({ loggedInUserId }) => (
+  <DataLoader path={`/users/${loggedInUserId}`}>
+    {renderProps => (
+      <AppRoutes {...renderProps} loggedInUserId={loggedInUserId} />
+    )}
   </DataLoader>
 )
 
-const App: React.SFC<Props> = props => {
-  const { loading, error, data: userData } = props
+const AppRoutes: React.SFC<Props & LoggedInUserId> = props => {
+  const { loading, error, data: userData, loggedInUserId } = props
 
   if (error) {
     throw new Error('Something went wrong. Could not retrieve user details')
@@ -39,7 +62,10 @@ const App: React.SFC<Props> = props => {
   return (
     <Router>
       <div className="app">
-        <SiteNavigation user={userData as AuthUser} />
+        <SiteNavigation
+          user={userData as AuthUser}
+          loggedInUserId={loggedInUserId}
+        />
         {loading && <div>Loading</div>}
         {!loading && userData && (
           <>
@@ -48,11 +74,17 @@ const App: React.SFC<Props> = props => {
               path="/"
               render={() => <Home user={userData as AuthUser} />}
             />
-            <Route exact path="/appointments" component={Appointments} />
             <Route
               exact
-              path="/book"
-              render={() => <BookAppointment user={userData as AuthUser} />}
+              path="/appointments"
+              render={() => <Appointments {...props} />}
+            />
+            <Route
+              exact
+              path="/book/:userId"
+              render={props => (
+                <BookAppointment {...props} user={userData as AuthUser} />
+              )}
             />
             <Route
               exact
@@ -66,4 +98,4 @@ const App: React.SFC<Props> = props => {
   )
 }
 
-export default AppWithData
+export default App

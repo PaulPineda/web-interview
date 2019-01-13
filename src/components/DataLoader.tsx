@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { API_ENDPOINT } from '../config'
-import { string } from 'prop-types'
 
 interface DataStatus {
   loading: boolean

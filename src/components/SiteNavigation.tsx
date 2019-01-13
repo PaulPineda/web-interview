@@ -6,16 +6,17 @@ import Avatar from './Avatar'
 
 interface Props {
   user: AuthUser
+  loggedInUserId: number
 }
 
-const SiteNavigation: React.SFC<Props> = ({ user }) => (
+const SiteNavigation: React.SFC<Props> = ({ user, loggedInUserId }) => (
   <header className="app-header">
     <Link to="/">
       <img src={logo} className="app-logo" alt="logo" />
     </Link>
     <ul>
       <li>
-        <Link to="/book">Book</Link>
+        <Link to={`/book/${loggedInUserId}`}>Book</Link>
       </li>
       <li>
         <Link to="/appointments">Appointments</Link>

@@ -1,15 +1,30 @@
 import * as React from 'react'
 import DataLoader from './DataLoader'
-import { Props } from '../App'
+import { Props as RenderProps } from '../App'
 import { formatAvailableTimeSlot, daysFromToday } from '../helpers/date'
 
-const AvailableSlotsWithData: React.SFC = () => (
+interface Props {
+  onClick: (e: React.SyntheticEvent<HTMLInputElement>) => void
+  hasErrors: Boolean
+  renderOnError: () => React.ReactNode
+}
+
+const AvailableSlotsWithData: React.SFC<Props> = props => (
   <DataLoader path="/availableSlots">
-    {renderProps => <AvailableSlots {...renderProps} />}
+    {renderProps => {
+      return <AvailableSlots {...renderProps} {...props} />
+    }}
   </DataLoader>
 )
 
-const AvailableSlots: React.SFC<Props> = ({ loading, error, data: slots }) => {
+const AvailableSlots: React.SFC<Props & RenderProps> = ({
+  loading,
+  error,
+  data: slots,
+  onClick,
+  hasErrors,
+  renderOnError,
+}) => {
   let returnVal = null
 
   if (loading) {
@@ -30,30 +45,33 @@ const AvailableSlots: React.SFC<Props> = ({ loading, error, data: slots }) => {
     returnVal = (
       <ul className="available-slots">
         {slots
-          .filter((slot: string) => daysFromToday(slot) > 0)
-          .map((slot: string, i: number) => {
-            const val = formatAvailableTimeSlot(slot, i) as string
+          .filter((slot: string, i: number) => i < 4 && daysFromToday(slot) > 0)
+          .map((iso8601Date: string, i: number) => {
+            const val = formatAvailableTimeSlot(iso8601Date, i)
 
             return (
-              i < 4 && (
-                <li key={slot} className="btn-pill">
-                  <input
-                    type="radio"
-                    name="time-slot"
-                    id={val}
-                    value={val}
-                    {...i === 0 && { checked: true }}
-                  />
-                  <label htmlFor={val as string}>{val}</label>
-                </li>
-              )
+              <li key={iso8601Date} className="btn-pill">
+                <input
+                  type="radio"
+                  name="timeslot"
+                  id={iso8601Date}
+                  value={iso8601Date}
+                  onClick={onClick}
+                />
+                <label htmlFor={iso8601Date}>{val}</label>
+              </li>
             )
           })}
       </ul>
     )
   }
 
-  return returnVal
+  return (
+    <>
+      {hasErrors && renderOnError()}
+      {returnVal}
+    </>
+  )
 }
 
 export default AvailableSlotsWithData
