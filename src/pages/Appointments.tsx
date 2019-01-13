@@ -23,10 +23,10 @@ const Appointments: React.SFC<Props> = ({
   error,
   data: appointments,
 }) => (
-  <div className="section-container">
+  <div className="section appointments">
     <SectionHeader mainHeading="Appointments" subHeading="Upcoming" />
 
-    <ul className="appointments-slot">
+    <ul className="slot">
       {loading && <div>Loading</div>}
 
       {error && (
@@ -41,11 +41,13 @@ const Appointments: React.SFC<Props> = ({
           const timeslot = formatAppointmentTimeSlot(dateTime)
 
           return (
-            <li key={key}>
-              <span className="circle icon container-centered">GP</span>
-              <span>
-                <h4 className="title">{`${type}`}</h4>
-                <span className="timeslot">{timeslot}</span>
+            <li key={key} className="menu-item">
+              <span className="icon">
+                <div className="icon flex circle center-h center-v">GP</div>
+              </span>
+              <span className="title">
+                <h4>{`${type}`}</h4>
+                <span>{timeslot}</span>
               </span>
             </li>
           )

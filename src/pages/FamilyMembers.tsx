@@ -7,7 +7,7 @@ interface Props {
 }
 
 const FamilyMembers: React.SFC<Props> = ({ user }) => (
-  <div className="section-container">
+  <div className="section">
     <SectionHeader mainHeading="Family Members" />
   </div>
 )

@@ -15,32 +15,33 @@ const Home: React.SFC<Props> = ({ user }) => {
   const { avatar, firstName, lastName } = user
 
   return (
-    <div className="section-container">
-      <div className="home-header">
+    <div className="section home">
+      <div className="header">
         <Avatar user={user} />
         <h1>{`${firstName} ${lastName}`}</h1>
       </div>
-      <div className="home-account">
-        <h3>Account</h3>
+      <div className="account">
+        <h4>Account</h4>
         <ul>
           <li>
-            <Link to="/family-members">
-              <button>Family</button>
+            <Link className="menu-item" to="/family-members">
+              <span className="title">Family</span>
+              <span className="accessory">></span>
             </Link>
           </li>
         </ul>
       </div>
-      <div className="home-clinical-records">
-        <h3>Clincal records</h3>
+      <div className="clinical-records">
+        <h4>Clincal records</h4>
         <ul>
-          <li>
-            <Link to="/appointments">
-              <button>Appointments</button>
-            </Link>
+          <li className="menu-item">
+            <span className="title">
+              <Link to="/">Personal Details</Link>
+            </span>
+            <span className="accessory">></span>
           </li>
-          <li>
-            <button>Personal Details</button>
-          </li>
+
+          <li />
         </ul>
       </div>
     </div>

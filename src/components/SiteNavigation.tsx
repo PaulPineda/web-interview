@@ -10,7 +10,7 @@ interface Props {
 }
 
 const SiteNavigation: React.SFC<Props> = ({ user, loggedInUserId }) => (
-  <header className="app-header">
+  <header className="site-nav">
     <Link to="/">
       <img src={logo} className="app-logo" alt="logo" />
     </Link>

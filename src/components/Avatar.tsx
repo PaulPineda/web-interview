@@ -17,7 +17,9 @@ const userInitials = (user: AuthUser) => {
 const Avatar: React.SFC<Props> = ({ user, size, initialsOnly }) => {
   if (initialsOnly) {
     return (
-      <div className="circle icon container-centered">{userInitials(user)}</div>
+      <div className="circle icon flex center-h center-v">
+        {userInitials(user)}
+      </div>
     )
   }
 

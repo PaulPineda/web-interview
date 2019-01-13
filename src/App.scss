@@ -35,32 +35,8 @@ a:active {
   color: $secondary-dark;
 }
 
-header {
-  padding: $gutter-size--large;
-  height: $header-height;
-  display: flex;
-  font-size: $font-size--default;
-
-  img {
-    max-height: $header-content-height;
-    padding: $gutter-size;
-  }
-
-  ul {
-    display: inline-flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-grow: 3;
-    list-style: none;
-    line-height: $header-content-height;
-  }
-
-  .icon {
-    width: $header-content-height;
-    height: $header-content-height;
-  }
-
-  border-bottom: $border-standard;
+ul {
+  list-style: none;
 }
 
 // <-- ICONS
@@ -76,44 +52,101 @@ header {
 }
 // ICONS -->
 
-// <-- SECTIONS
-.section-container {
+// <-- CONTAINERS
+.site-nav {
+  padding: $gutter-size--large;
+  height: $header-height;
+  display: flex;
+  font-size: $font-size--default;
+
+  img {
+    max-height: $header-content-height;
+    padding: $gutter-size;
+  }
+
+  ul {
+    display: inline-flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-grow: 3;
+    line-height: $header-content-height;
+  }
+
+  .icon {
+    width: $header-content-height;
+    height: $header-content-height;
+  }
+
+  border-bottom: $border-standard;
+}
+
+.section {
   padding: $gutter-size--xlarge;
   max-width: 716px;
   margin: 0 auto;
-}
-
-.container-centered {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-// SECTIONS -->
-
-.appointments-slot {
-  list-style: none;
 
   li {
-    display: flex;
-    justify-content: flex-start;
-    align-content: center;
     margin: $gutter-size--xlarge 0;
+  }
+}
+
+.flex {
+  display: flex;
+
+  &.center-h {
+    justify-content: center;
+  }
+
+  &.center-v {
+    align-items: center;
+  }
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+
+  .icon {
+    flex: 1;
+  }
+  .title {
+    flex: 10;
+  }
+  .accessory {
+    flex: 1;
+  }
+}
+
+// SECTION CONTAINERS-->
+
+// PAGES
+
+.home {
+  .menu-item {
+    justify-content: space-evenly;
+  }
+}
+
+.appointments {
+  .menu-item {
+    justify-content: flex-start;
 
     .title {
-      margin: $gutter-size;
-      padding: 0 $gutter-size--large;
-    }
-
-    .timeslot {
-      margin: $gutter-size;
-      padding: $gutter-size--large;
-      color: $secondary-dark;
-      font-size: $font-size--small;
+      h4 {
+        margin: $gutter-size;
+        padding: 0 $gutter-size--large;
+      }
+      span {
+        margin: $gutter-size;
+        padding: $gutter-size--large;
+        color: $secondary-dark;
+        font-size: $font-size--small;
+      }
     }
   }
 }
 
-.booking-container {
+.booking {
   h4 {
     display: inline-block;
     padding-left: 40px;
@@ -150,7 +183,6 @@ header {
       display: flex;
       justify-content: flex-start;
       align-content: center;
-      list-style: none;
       margin-top: 0;
 
       li {
@@ -188,20 +220,18 @@ header {
   }
 
   .notes {
-    div {
-      padding-left: 40px;
+    padding-left: 40px;
 
-      textarea {
-        border: 1px solid $light-grey;
-        border-radius: 0.5 * $font-size--medium;
-        outline-color: $positive;
-        width: 100%;
-        height: 8 * $font-size--default;
-      }
+    textarea {
+      border: 1px solid $light-grey;
+      border-radius: 0.5 * $font-size--medium;
+      outline-color: $positive;
+      width: 100%;
+      height: 8 * $font-size--default;
     }
   }
 
-  .form-response {
+  .response {
     font-weight: 600;
 
     &.required {

@@ -123,48 +123,44 @@ class BookAppointment extends React.Component<Props, State> {
     } = this.state
 
     return (
-      <div className="section-container">
-        <div className="booking-container">
-          <SectionHeader mainHeading="New Appointment" />
-          <form onSubmit={this.handleSubmit}>
-            <div className="choose-user">
-              <Avatar user={user} /> <span>{`${firstName} ${lastName}`}</span>
-            </div>
+      <div className="section booking">
+        <SectionHeader mainHeading="New Appointment" />
+        <form onSubmit={this.handleSubmit}>
+          <div className="choose-user">
+            <Avatar user={user} /> <span>{`${firstName} ${lastName}`}</span>
+          </div>
 
-            <h4>Date &amp; Time</h4>
-            <div className="date-time">
-              <AvailableSlots
-                onClick={this.handleTimeSlotClick}
-                hasErrors={hasErrors}
-                renderOnError={() => (
-                  <span className="form-response required">
-                    Please choose time slot
-                  </span>
-                )}
-              />
-            </div>
+          <h4>Date &amp; Time</h4>
+          <div className="date-time">
+            <AvailableSlots
+              onClick={this.handleTimeSlotClick}
+              hasErrors={hasErrors}
+              renderOnError={() => (
+                <span className="response required">
+                  Please choose time slot
+                </span>
+              )}
+            />
+          </div>
 
-            <h4>Notes</h4>
-            <div className="notes">
-              <div>
-                <textarea
-                  onChange={this.handleTextAreaChange}
-                  placeholder="Describe your symptoms (optional)"
-                />
-              </div>
-            </div>
+          <h4>Notes</h4>
+          <div className="notes">
+            <textarea
+              onChange={this.handleTextAreaChange}
+              placeholder="Describe your symptoms (optional)"
+            />
+          </div>
 
-            <button type="submit">Book</button>
+          <button type="submit">Book</button>
 
-            {responseError && (
-              <span className="form-response error">
-                Something went wrong. Your booking was not successful
-              </span>
-            )}
+          {responseError && (
+            <span className="response error">
+              Something went wrong. Your booking was not successful
+            </span>
+          )}
 
-            {responseSuccess && <Redirect to="/appointments" />}
-          </form>
-        </div>
+          {responseSuccess && <Redirect to="/appointments" />}
+        </form>
       </div>
     )
   }
